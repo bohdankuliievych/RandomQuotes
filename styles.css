@@ -4,12 +4,17 @@ body {
 }
 
 .container {
+  position: relative;
   max-width: 600px;
   margin: 50px auto;
   text-align: center;
 }
 
-button {
+body.dark {
+  background-color: #303030;
+  color: #fafafa;
+}
+.btn {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #007bff;
@@ -21,4 +26,28 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.quote::before {
+  content: '"';
+}
+.quote::after {
+  content: '"';
+}
+
+.theme-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #303030;
+  color: #fafafa;
+  font-size: 16px;
+}
+.theme-button.dark {
+  background-color: #c7c7c7;
+  color: #303030;
 }
