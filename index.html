@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random Quotes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -14,8 +20,63 @@
         <p id="quote" class="quote">Click the button to get a random quote</p>
         <p id="author"></p>
         <button id="generate-btn" class="btn">Generate Quote</button>
+        <button id="fav-button" class="fav-btn" disabled>
+          <svg
+            width="32px"
+            height="32px"
+            viewBox="0 -0.5 33 33"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            fill="#000000"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke="#CCCCCC"
+              stroke-width="0.198"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+              <title>star</title>
+              <desc>Created with Sketch.</desc>
+              <defs></defs>
+              <g
+                id="Vivid.JS"
+                stroke="#ffd732"
+                stroke-width="2"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="Vivid-Icons"
+                  transform="translate(-903.000000, -411.000000)"
+                  fill="none"
+                >
+                  <g id="Icons" transform="translate(37.000000, 169.000000)">
+                    <g id="star" transform="translate(858.000000, 234.000000)">
+                      <g transform="translate(7.000000, 8.000000)" id="Shape">
+                        <polygon
+                          points="27.865 31.83 17.615 26.209 7.462 32.009 9.553 20.362 0.99 12.335 12.532 10.758 17.394 0 22.436 10.672 34 12.047 25.574 20.22"
+                        ></polygon>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </button>
       </div>
+      <div id="fav-container" class="favourites-container row" ></div>
     </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="script.js"></script>
   </body>
 </html>

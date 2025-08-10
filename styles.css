@@ -51,3 +51,27 @@ body.dark {
   background-color: #c7c7c7;
   color: #303030;
 }
+
+.fav-btn {
+	padding: 5px;
+	background-color: #007bff;;
+	border: none;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.fav-btn:disabled {
+  opacity: 0.6;
+}
+.favourites-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  /* align-items: center; */
+  flex-wrap: wrap;
+}
+.favourites-container .card {
+  flex: 0 1 300px;
+}
