@@ -1,4 +1,4 @@
-function addFavCard({ quote, author }, container) {
+function addFavCard({ text, author }, container) {
   // add card with favourite quote
   const favCard = document.createElement("div");
   favCard.classList.add("favourite-card");
@@ -9,15 +9,15 @@ function addFavCard({ quote, author }, container) {
   favCardBody.classList.add("card-body");
   favCard.appendChild(favCardBody);
 
-  favCardBody.innerHTML = `<p>${quote}</p>
+  favCardBody.innerHTML = `<p>${text}</p>
 		<p class="author">${author}</p>`;
   container.appendChild(favCard);
 }
 
-function removeFavCard({ quote }) {
+function removeFavCard({ text }) {
   const cardBodies = document.querySelectorAll(".card-body");
   cardBodies.forEach((cardBody) => {
-    if (cardBody.textContent.includes(quote)) {
+    if (cardBody.textContent.includes(text)) {
       const card = cardBody.closest(".card");
       // If a card is found, remove it from the DOM
       if (card) {
