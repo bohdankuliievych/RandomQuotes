@@ -1,27 +1,31 @@
-import { handleFavBtnColor, toggleFavQuote } from "./src/favBtn.js";
 import {
-  favButton,
-  chooseRandomQuote,
-  renderQuote,
-} from "./src/generateBtn.js";
+  enableFavBtn,
+  disableFavBtn,
+  handleFavBtnColor,
+  toggleQuote,
+} from "./src/favBtn.js";
+import { chooseRandomQuote, renderQuote } from "./src/generateBtn.js";
 
-favButton.setAttribute("disabled", "true");
-
+const favButton = document.getElementById("fav-button");
+const quotePara = document.getElementById("quote");
 const body = document.getElementsByTagName("body")[0];
 const themeButton = document.getElementById("theme-button");
 const generateBtn = document.getElementById("generate-btn");
 
 let currentQuote = null;
 
+disableFavBtn(favButton);
+
 function generateQuoteHandler() {
+  enableFavBtn(favButton, quotePara);
   currentQuote = chooseRandomQuote();
-    const isFav = renderQuote(currentQuote);
+  const isFav = renderQuote(currentQuote);
   handleFavBtnColor(isFav);
 }
 
 generateBtn.addEventListener("click", generateQuoteHandler);
 favButton.addEventListener("click", () => {
-  toggleFavQuote(currentQuote);
+  toggleQuote(currentQuote);
 });
 
 themeButton.addEventListener("click", () => {
