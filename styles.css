@@ -66,11 +66,21 @@ body.dark {
   opacity: 0.6;
 }
 .favourites-container {
+  padding: 0 5vw;
   display: flex;
   gap: 10px;
-  justify-content: center;
+  /* justify-content: space-evenly; */
   flex-wrap: wrap;
 }
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+	flex-grow: 1;
+}
+.card-body p {
+  flex-grow: 1;
+}
 .favourites-container .card {
-  flex: 0 1 300px;
+  flex: 1 1 300px;
 }

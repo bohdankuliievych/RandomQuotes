@@ -11,7 +11,7 @@ function addFavCard({ id, text, author }, container) {
   favCard.appendChild(favCardBody);
 
   favCardBody.innerHTML = `<p>${text}</p>
-		<p class="author">${author}</p>`;
+		<p class="author">${author}</p><button class="rm-btn">Remove</button>`;
   container.appendChild(favCard);
 }
 
@@ -22,4 +22,5 @@ function removeFavCard({ id }) {
     card.remove();
   }
 }
+
 export { addFavCard, removeFavCard };

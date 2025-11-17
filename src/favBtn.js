@@ -1,6 +1,5 @@
 import { addFavCard, removeFavCard } from "./favCard.js";
 
-const favContainer = document.getElementById("fav-container");
 const svgPath = document.getElementById("vivid-svg");
 
 function enableFavBtn(btn, para) {
@@ -21,7 +20,7 @@ function handleFavBtnColor(isFavourite) {
   svgPath.setAttribute("fill", "none");
 }
 
-function toggleQuote(quote) {
+function toggleQuote(quote, favContainer) {
   if (!quote.isFavourite) {
     quote.isFavourite = "true";
     addFavCard(quote, favContainer);
@@ -31,5 +30,6 @@ function toggleQuote(quote) {
   quote.isFavourite = !quote.isFavourite;
   removeFavCard(quote);
   handleFavBtnColor(quote.isFavourite);
-	}
+}
+
 export { enableFavBtn, disableFavBtn, handleFavBtnColor, toggleQuote };

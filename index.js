@@ -5,7 +5,9 @@ import {
   toggleQuote,
 } from "./src/favBtn.js";
 import { chooseRandomQuote, renderQuote } from "./src/generateBtn.js";
+import { quotes } from "./src/data/quotes.js";
 
+const favContainer = document.getElementById("fav-container");
 const favButton = document.getElementById("fav-button");
 const quotePara = document.getElementById("quote");
 const body = document.getElementsByTagName("body")[0];
@@ -25,7 +27,7 @@ function generateQuoteHandler() {
 
 generateBtn.addEventListener("click", generateQuoteHandler);
 favButton.addEventListener("click", () => {
-  toggleQuote(currentQuote);
+  toggleQuote(currentQuote, favContainer);
 });
 
 themeButton.addEventListener("click", () => {
@@ -34,4 +36,13 @@ themeButton.addEventListener("click", () => {
   themeButton.textContent = themeButton.classList.contains("dark")
     ? "Light"
     : "Dark";
+});
+
+favContainer.addEventListener("click", (e) => {
+  const cardId = e.target.closest(".favourite-card").dataset.quoteId;
+  toggleQuote(
+    quotes.find((q) => q.id === cardId),
+    favContainer
+  );
+  handleFavBtnColor(currentQuote.isFavourite);
 });
