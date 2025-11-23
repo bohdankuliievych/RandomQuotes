@@ -3,81 +3,62 @@ import {
   disableFavBtn,
   handleFavBtnColor,
   toggleQuote,
-} from "./src/favBtn.js";
-import { addFavCard } from "./src/favCard.js";
-import { chooseRandomQuote, renderQuote } from "./src/generateBtn.js";
-import { quotes } from "./src/data/quotes.js";
+} from "./src/handlers/favBtn.js";
+import { addFavCard } from "./src/handlers/favCard.js";
+import { getRandomQuote, renderQuote } from "./src/handlers/quote.js";
+
 import {
-  setLocalItem,
-  getLocalItem,
+  saveInLocalStorage,
+  readFromLocalStorage,
   removeLocalItem,
   clearLocalStorage,
-} from "./src/utils.js";
+} from "./src/utils/localStorage.js";
 
 const favContainer = document.getElementById("fav-container");
 const favButton = document.getElementById("fav-button");
 const quotePara = document.getElementById("quote");
 const body = document.getElementsByTagName("body")[0];
 const themeButton = document.getElementById("theme-button");
-const generateBtn = document.getElementById("generate-btn");
+const randomQuoteBtn = document.getElementById("random-quote-btn");
 
 let currentQuote = null;
 const favouriteQuotes = [];
 
-function generateQuoteHandler() {
-  enableFavBtn(favButton, quotePara);
-  currentQuote = chooseRandomQuote();
-  const isFav = renderQuote(currentQuote);
-  handleFavBtnColor(isFav);
-  setLocalItem("currentQuote", currentQuote);
-}
-function updateQuotesArray(favArray, srcArray) {
-  favArray.forEach((favQuote) => {
-    let foundQuote = srcArray.find((quote) => quote.id === favQuote.id);
-    if (foundQuote) {
-      foundQuote.isFavourite = true;
-    }
-  });
+function findQuoteInFavourites({ id }, favouritesArray) {
+  return favouritesArray.find((quote) => quote.id === id);
 }
 
-function updateFavouriteQuotes(quote) {
-  const foundIndex = favouriteQuotes.findIndex(
-    (favQuote) => favQuote.id === quote.id
-  );
-  if (quote.isFavourite) {
-    if (foundIndex === -1) {
-      favouriteQuotes.push(quote);
-    }
-  }
-  if (!quote.isFavourite) {
-    if (foundIndex !== -1) {
-      favouriteQuotes.splice(foundIndex, 1);
-    }
-  }
+function generateQuoteHandler() {
+  enableFavBtn(favButton, quotePara);
+  currentQuote = getRandomQuote();
+  renderQuote(currentQuote);
+  const isFav = findQuoteInFavourites(currentQuote, favouriteQuotes);
+  handleFavBtnColor(isFav);
+  saveInLocalStorage("currentQuote", currentQuote);
 }
+
 function init() {
-  // local storage current quote
-  const localQuote = getLocalItem("currentQuote");
-  if (localQuote) {
-    favButton.removeAttribute("disabled");
-    const isFav = renderQuote(localQuote);
-    handleFavBtnColor(isFav);
-    currentQuote = quotes.find((quote) => quote.id === localQuote.id);
-    currentQuote.isFavourite = localQuote.isFavourite;
-  }
-  // local storage favourite quotes
-  const localQuotes = getLocalItem("favouriteQuotes");
+  // local storage [favourites]
+  const localQuotes = readFromLocalStorage("favouriteQuotes");
   if (localQuotes) {
     localQuotes.forEach((item) => {
       favouriteQuotes.push(item);
     });
   }
   if (favouriteQuotes.length > 0) {
-    // render favourites
-    favouriteQuotes.forEach((element) => {
-      addFavCard(element, favContainer);
+    favouriteQuotes.forEach((quote) => {
+      addFavCard(quote, favContainer);
     });
-    updateQuotesArray(favouriteQuotes, quotes);
+  }
+
+  // local storage current quote
+  const localQuote = readFromLocalStorage("currentQuote");
+  if (localQuote) {
+    favButton.removeAttribute("disabled");
+    currentQuote = localQuote;
+    renderQuote(currentQuote);
+    const isFav = findQuoteInFavourites(currentQuote, favouriteQuotes);
+    handleFavBtnColor(isFav);
   }
 }
 
@@ -85,15 +66,15 @@ disableFavBtn(favButton);
 
 window.addEventListener("load", init);
 
-generateBtn.addEventListener("click", generateQuoteHandler);
+// generate quote button
+randomQuoteBtn.addEventListener("click", generateQuoteHandler);
 
+// star button click
 favButton.addEventListener("click", () => {
-  toggleQuote(currentQuote, favContainer);
-  setLocalItem("currentQuote", currentQuote);
-  updateFavouriteQuotes(currentQuote);
-  setLocalItem("favouriteQuotes", favouriteQuotes);
+  toggleQuote(currentQuote, favContainer, favouriteQuotes);
+  saveInLocalStorage("favouriteQuotes", favouriteQuotes);
 });
-
+// theme button
 themeButton.addEventListener("click", () => {
   body.classList.toggle("dark");
   themeButton.classList.toggle("dark");
@@ -101,15 +82,10 @@ themeButton.addEventListener("click", () => {
     ? "Light"
     : "Dark";
 });
-
+// 'remove' button functionality
 favContainer.addEventListener("click", (e) => {
   const cardId = e.target.closest(".favourite-card").dataset.quoteId;
-  toggleQuote(
-    quotes.find((q) => q.id === cardId),
-    favContainer
-  );
-  handleFavBtnColor(currentQuote.isFavourite);
-
-  updateFavouriteQuotes(quotes.find((q) => q.id === cardId));
-  setLocalItem("favouriteQuotes", favouriteQuotes);
+  const quote = favouriteQuotes.find((favQuote) => favQuote.id === cardId);
+  toggleQuote(quote, favContainer, favouriteQuotes);
+  saveInLocalStorage("favouriteQuotes", favouriteQuotes);
 });

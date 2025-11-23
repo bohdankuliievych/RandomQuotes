@@ -20,16 +20,20 @@ function handleFavBtnColor(isFavourite) {
   svgPath.setAttribute("fill", "none");
 }
 
-function toggleQuote(quote, favContainer) {
-  if (!quote.isFavourite) {
-    quote.isFavourite = "true";
+function toggleQuote(quote, favContainer, favArray) {
+  const foundInFavs = favArray.find((favQuote) => favQuote.id === quote.id);
+  if (!foundInFavs) {
+    favArray.push(quote);
     addFavCard(quote, favContainer);
-    handleFavBtnColor(quote.isFavourite);
-    return;
   }
-  quote.isFavourite = !quote.isFavourite;
-  removeFavCard(quote);
-  handleFavBtnColor(quote.isFavourite);
+  if (foundInFavs) {
+    const foundIndex = favArray.findIndex(
+      (favQuote) => favQuote.id === quote.id
+    );
+    favArray.splice(foundIndex, 1);
+    removeFavCard(quote);
+  }
+  handleFavBtnColor(!foundInFavs);
 }
 
 export { enableFavBtn, disableFavBtn, handleFavBtnColor, toggleQuote };

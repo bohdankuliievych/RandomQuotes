@@ -1,8 +1,4 @@
-function generateRandomInt(num) {
-  return Math.floor(Math.random() * num);
-}
-// local storage
-function setLocalItem(key, value) {
+function saveInLocalStorage(key, value) {
   if (typeof key !== "string") {
     console.error("Invalid key");
     return;
@@ -15,7 +11,7 @@ function setLocalItem(key, value) {
   }
 }
 
-function getLocalItem(key) {
+function readFromLocalStorage(key) {
   let value = localStorage.getItem(key);
   try {
     return JSON.parse(value);
@@ -31,10 +27,5 @@ function removeLocalItem(key) {
 function clearLocalStorage() {
   localStorage.clear();
 }
-export {
-  generateRandomInt,
-  setLocalItem,
-  getLocalItem,
-  removeLocalItem,
-  clearLocalStorage,
-};
+
+export { saveInLocalStorage, readFromLocalStorage, removeLocalItem, clearLocalStorage };
