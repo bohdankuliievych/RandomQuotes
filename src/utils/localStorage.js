@@ -28,4 +28,9 @@ function clearLocalStorage() {
   localStorage.clear();
 }
 
-export { saveInLocalStorage, readFromLocalStorage, removeLocalItem, clearLocalStorage };
+export {
+  saveInLocalStorage,
+  readFromLocalStorage,
+  removeLocalItem,
+  clearLocalStorage,
+};

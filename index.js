@@ -1,12 +1,12 @@
 import {
+  addFavCard,
   enableFavBtn,
   disableFavBtn,
   handleFavBtnColor,
   toggleQuote,
-} from "./src/handlers/favBtn.js";
-import { addFavCard } from "./src/handlers/favCard.js";
+  findQuoteInFavourites,
+} from "./src/handlers/favourites.js";
 import { getRandomQuote, renderQuote } from "./src/handlers/quote.js";
-
 import {
   saveInLocalStorage,
   readFromLocalStorage,
@@ -21,12 +21,10 @@ const body = document.getElementsByTagName("body")[0];
 const themeButton = document.getElementById("theme-button");
 const randomQuoteBtn = document.getElementById("random-quote-btn");
 
+// state
 let currentQuote = null;
 const favouriteQuotes = [];
-
-function findQuoteInFavourites({ id }, favouritesArray) {
-  return favouritesArray.find((quote) => quote.id === id);
-}
+//
 
 function generateQuoteHandler() {
   enableFavBtn(favButton, quotePara);
@@ -71,7 +69,9 @@ randomQuoteBtn.addEventListener("click", generateQuoteHandler);
 
 // star button click
 favButton.addEventListener("click", () => {
+	// changes state and UI
   toggleQuote(currentQuote, favContainer, favouriteQuotes);
+	// changes local storage
   saveInLocalStorage("favouriteQuotes", favouriteQuotes);
 });
 // theme button
